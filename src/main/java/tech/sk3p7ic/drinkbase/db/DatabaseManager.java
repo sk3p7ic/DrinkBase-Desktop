@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class DatabaseManager {
   private static Logger logger = LoggerFactory.getLogger(DatabaseManager.class);
 
-  private Connection connection;
+  protected Connection connection;
 
   public DatabaseManager(String databasePath) throws Exception {
     if (!(new File(databasePath).exists())) {
