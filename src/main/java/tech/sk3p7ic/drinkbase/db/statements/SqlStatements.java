@@ -17,6 +17,10 @@ public class SqlStatements {
   public static final String GET_RECIPES     = "SELECT * FROM recipes";
   public static final String GET_USES        = "SELECT * FROM uses_ingredient";
 
+  public static final String SET_CABINET     = "INSERT INTO cabinet(cab_id, cab_name, cab_location) VALUES (?,?,?);";
+  public static final String SET_INGREDIENT  = "INSERT INTO ingredients(ing_id, ing_name, ing_type, ing_picture) " +
+      "VALUES (?,?,?,?);";
+
   public static PreparedStatement getCabinetById(final int cab_id, Connection connection) {
     String sql = GET_CABINETS + " WHERE cab_id = ?";
     try (PreparedStatement prepStmt = connection.prepareStatement(sql)) {
@@ -32,39 +36,6 @@ public class SqlStatements {
     String sql = GET_CABINETS + " WHERE cab_name = ?";
     try (PreparedStatement prepStmt = connection.prepareStatement(sql)) {
       prepStmt.setString(1, cab_name);
-      return prepStmt;
-    } catch (SQLException e) {
-      logger.warn("Error creating statement: " + e.getMessage());
-      return null;
-    }
-  }
-
-  public static PreparedStatement getIngredientById(final int ing_id, Connection connection) {
-    String sql = GET_INGREDIENTS + " WHERE ing_id = ?";
-    try (PreparedStatement prepStmt = connection.prepareStatement(sql)) {
-      prepStmt.setInt(1, ing_id);
-      return prepStmt;
-    } catch (SQLException e) {
-      logger.warn("Error creating statement: " + e.getMessage());
-      return null;
-    }
-  }
-
-  public static PreparedStatement getIngredientByName(final String ing_name, Connection connection) {
-    String sql = GET_INGREDIENTS + " WHERE ing_name = ?";
-    try (PreparedStatement prepStmt = connection.prepareStatement(sql)) {
-      prepStmt.setString(1, ing_name);
-      return prepStmt;
-    } catch (SQLException e) {
-      logger.warn("Error creating statement: " + e.getMessage());
-      return null;
-    }
-  }
-
-  public static PreparedStatement getIngredientByType(final String ing_type, Connection connection) {
-    String sql = GET_INGREDIENTS + " WHERE ing_type = ?";
-    try (PreparedStatement prepStmt = connection.prepareStatement(sql)) {
-      prepStmt.setString(1, ing_type);
       return prepStmt;
     } catch (SQLException e) {
       logger.warn("Error creating statement: " + e.getMessage());

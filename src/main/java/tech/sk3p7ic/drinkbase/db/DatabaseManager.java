@@ -5,10 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Scanner;
 
 public class DatabaseManager {
@@ -72,5 +69,18 @@ public class DatabaseManager {
       }
     }
     return stringBuilder.toString(); // Return the final sql code String
+  }
+
+  public Connection getConnection() {
+    return connection;
+  }
+
+  public ResultSet execute(PreparedStatement statement) {
+    try {
+      return statement.executeQuery();
+    } catch (SQLException e) {
+      logger.warn("Error executing statement '" + statement.toString() + "':\n\t" + e.getMessage());
+      return null;
+    }
   }
 }
